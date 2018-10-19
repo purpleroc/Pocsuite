@@ -6,7 +6,7 @@ Copyright (c) 2014-2016 pocsuite developers (https://seebug.org)
 See the file 'docs/COPYING' for copying permission
 """
 
-import requests
+from pocsuite.lib.request.basic import req as requests
 from pocsuite.lib.utils import randoms
 
 
