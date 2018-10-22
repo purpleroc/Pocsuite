@@ -82,7 +82,7 @@ def pocThreads():
 
     while not kb.targets.empty() and kb.threadContinue:
         target, poc, pocname = kb.targets.get()
-        infoMsg = "poc:'%s' target:'%s'" % (poc.name, target)
+        infoMsg = "['%s'] poc:'%s' target:'%s'" % (poc.vulID, poc.name, target)
         logger.log(CUSTOM_LOGGING.SYSINFO, infoMsg)
         # TODO json
         if isinstance(poc, dict):
@@ -93,10 +93,14 @@ def pocThreads():
             kb.pCollect.add(poc.__module__)
             result = poc.execute(target, headers=conf.httpHeaders, mode=conf.mode, params=conf.params, verbose=False)
             if not result:
-                continue
-            result_status = "success" if result.is_success() else "failed"
-            output = (target, pocname, result.vulID, result.appName, result.appVersion, result_status, time.strftime("%Y-%m-%d %X", time.localtime()), str(result.result))
-            result.show_result()
+                output = (target, pocname, poc.vulID, poc.name, "1.0", "failed", time.strftime("%Y-%m-%d %X", time.localtime()), "")
+            else:    
+                try:
+                    result_status = "success" if result.is_success() else "failed"
+                 except Exception,e:
+                     continue
+                 output = (target, pocname, result.vulID, result.appName, result.appVersion, result_status, time.strftime("%    Y-%m-%d %X", time.localtime()), str(result.result))
+                 result.show_result()
 
         kb.results.add(output)
         if isinstance(conf.delay, (int, float)) and conf.delay > 0:
