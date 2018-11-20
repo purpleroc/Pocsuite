@@ -1,0 +1,8 @@
+ldap
+ds_store
+MySQL-python
+pymssql
+paramiko
+pymongo
+lxml
+bs4
