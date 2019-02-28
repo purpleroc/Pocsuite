@@ -97,10 +97,10 @@ def pocThreads():
             else:    
                 try:
                     result_status = "success" if result.is_success() else "failed"
-                 except Exception,e:
-                     continue
-                 output = (target, pocname, result.vulID, result.appName, result.appVersion, result_status, time.strftime("%    Y-%m-%d %X", time.localtime()), str(result.result))
-                 result.show_result()
+                except Exception,e:
+                    continue
+                output = (target, pocname, result.vulID, result.appName, result.appVersion, result_status, time.strftime("%    Y-%m-%d %X", time.localtime()), str(result.result))
+                result.show_result()
 
         kb.results.add(output)
         if isinstance(conf.delay, (int, float)) and conf.delay > 0:
